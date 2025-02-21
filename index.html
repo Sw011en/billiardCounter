@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счетчик для русского бильярда</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .player {
+            margin-bottom: 20px;
+        }
+        .player h2 {
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .buttons button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .stats {
+            margin-top: 20px;
+        }
+        .stats table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .stats th, .stats td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .stats th {
+            background-color: #f2f2f2;
+        }
+        .total-games {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="player" id="player1">
+            <h2>Игорь</h2>
+            <div class="buttons">
+                <button onclick="addBall('player1', 'чужой в угол')">Чужой в угол</button>
+                <button onclick="addBall('player1', 'чужой в центр')">Чужой в центр</button>
+                <button onclick="addBall('player1', 'свой в угол')">Свой в угол</button>
+                <button onclick="addBall('player1', 'свой в центр')">Свой в центр</button>
+                <button onclick="addBall('player1', 'случайный шар')">Случайный шар</button>
+                <button onclick="addBall('player1', 'шар с разбоя')">Шар с разбоя</button>
+            </div>
+            <div class="stats">
+                <h3>Статистика:</h3>
+                <table>
+                    <tr>
+                        <th>Тип шара</th>
+                        <th>Количество</th>
+                    </tr>
+                    <tr>
+                        <td>Чужой в угол</td>
+                        <td id="player1-чужой в угол">0</td>
+                    </tr>
+                    <tr>
+                        <td>Чужой в центр</td>
+                        <td id="player1-чужой в центр">0</td>
+                    </tr>
+                    <tr>
+                        <td>Свой в угол</td>
+                        <td id="player1-свой в угол">0</td>
+                    </tr>
+                    <tr>
+                        <td>Свой в центр</td>
+                        <td id="player1-свой в центр">0</td>
+                    </tr>
+                    <tr>
+                        <td>Случайный шар</td>
+                        <td id="player1-случайный шар">0</td>
+                    </tr>
+                    <tr>
+                        <td>Шар с разбоя</td>
+                        <td id="player1-шар с разбоя">0</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Победы: <span id="player1-wins">0</span></h3>
+            </div>
+        </div>
+
+        <div class="player" id="player2">
+            <h2>Юра</h2>
+            <div class="buttons">
+                <button onclick="addBall('player2', 'чужой в угол')">Чужой в угол</button>
+                <button onclick="addBall('player2', 'чужой в центр')">Чужой в центр</button>
+                <button onclick="addBall('player2', 'свой в угол')">Свой в угол</button>
+                <button onclick="addBall('player2', 'свой в центр')">Свой в центр</button>
+                <button onclick="addBall('player2', 'случайный шар')">Случайный шар</button>
+                <button onclick="addBall('player2', 'шар с разбоя')">Шар с разбоя</button>
+            </div>
+            <div class="stats">
+                <h3>Статистика:</h3>
+                <table>
+                    <tr>
+                        <th>Тип шара</th>
+                        <th>Количество</th>
+                    </tr>
+                    <tr>
+                        <td>Чужой в угол</td>
+                        <td id="player2-чужой в угол">0</td>
+                    </tr>
+                    <tr>
+                        <td>Чужой в центр</td>
+                        <td id="player2-чужой в центр">0</td>
+                    </tr>
+                    <tr>
+                        <td>Свой в угол</td>
+                        <td id="player2-свой в угол">0</td>
+                    </tr>
+                    <tr>
+                        <td>Свой в центр</td>
+                        <td id="player2-свой в центр">0</td>
+                    </tr>
+                    <tr>
+                        <td>Случайный шар</td>
+                        <td id="player2-случайный шар">0</td>
+                    </tr>
+                    <tr>
+                        <td>Шар с разбоя</td>
+                        <td id="player2-шар с разбоя">0</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Победы: <span id="player2-wins">0</span></h3>
+            </div>
+        </div>
+
+        <div class="total-games">
+            <h3>Общее количество сыгранных партий: <span id="total-games">0</span></h3>
+        </div>
+    </div>
+
+    <script>
+        const stats = {
+            player1: {
+                'чужой в угол': 0,
+                'чужой в центр': 0,
+                'свой в угол': 0,
+                'свой в центр': 0,
+                'случайный шар': 0,
+                'шар с разбоя': 0,
+                wins: 0
+            },
+            player2: {
+                'чужой в угол': 0,
+                'чужой в центр': 0,
+                'свой в угол': 0,
+                'свой в центр': 0,
+                'случайный шар': 0,
+                'шар с разбоя': 0,
+                wins: 0
+            }
+        };
+
+        let totalGames = 0; // Общий счетчик сыгранных партий
+
+        function addBall(player, type) {
+            stats[player][type]++;
+            document.getElementById(`${player}-${type}`).textContent = stats[player][type];
+
+            // Считаем общее количество забитых шаров для текущего игрока (без учета побед)
+            const totalBalls = stats[player]['чужой в угол'] +
+                               stats[player]['чужой в центр'] +
+                               stats[player]['свой в угол'] +
+                               stats[player]['свой в центр'] +
+                               stats[player]['случайный шар'] +
+                               stats[player]['шар с разбоя'];
+
+            // Если игрок забил 8 шаров, он побеждает
+            if (totalBalls >= 8) {
+                stats[player].wins++;
+                document.getElementById(`${player}-wins`).textContent = stats[player].wins;
+
+                // Увеличиваем общий счетчик партий
+                totalGames++;
+                document.getElementById('total-games').textContent = totalGames;
+
+                // Сбрасываем счетчики шаров для обоих игроков
+                resetBalls();
+
+                alert(`${player === 'player1' ? 'Игорь' : 'Юра'} побеждает в партии! Начинается новая партия.`);
+            }
+        }
+
+        function resetBalls() {
+            for (const player of ['player1', 'player2']) {
+                for (const type of ['чужой в угол', 'чужой в центр', 'свой в угол', 'свой в центр', 'случайный шар', 'шар с разбоя']) {
+                    stats[player][type] = 0;
+                    document.getElementById(`${player}-${type}`).textContent = 0;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
