@@ -50,174 +50,177 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="player" id="player1">
-            <h2>Игорь</h2>
+        <div id="player1" class="player">
+            <h2 id="player1-name"></h2>
             <div class="buttons">
-                <button onclick="addBall('player1', 'чужой в угол')">Чужой в угол</button>
-                <button onclick="addBall('player1', 'чужой в центр')">Чужой в центр</button>
                 <button onclick="addBall('player1', 'свой в угол')">Свой в угол</button>
+                <button onclick="addBall('player1', 'чужой в угол')">Чужой в угол</button>
                 <button onclick="addBall('player1', 'свой в центр')">Свой в центр</button>
+                <button onclick="addBall('player1', 'чужой в центр')">Чужой в центр</button>
                 <button onclick="addBall('player1', 'случайный шар')">Случайный шар</button>
                 <button onclick="addBall('player1', 'шар с разбоя')">Шар с разбоя</button>
-            </div>
-            <div class="stats">
-                <h3>Статистика:</h3>
-                <table>
-                    <tr>
-                        <th>Тип шара</th>
-                        <th>Количество</th>
-                    </tr>
-                    <tr>
-                        <td>Чужой в угол</td>
-                        <td id="player1-чужой в угол">0</td>
-                    </tr>
-                    <tr>
-                        <td>Чужой в центр</td>
-                        <td id="player1-чужой в центр">0</td>
-                    </tr>
-                    <tr>
-                        <td>Свой в угол</td>
-                        <td id="player1-свой в угол">0</td>
-                    </tr>
-                    <tr>
-                        <td>Свой в центр</td>
-                        <td id="player1-свой в центр">0</td>
-                    </tr>
-                    <tr>
-                        <td>Случайный шар</td>
-                        <td id="player1-случайный шар">0</td>
-                    </tr>
-                    <tr>
-                        <td>Шар с разбоя</td>
-                        <td id="player1-шар с разбоя">0</td>
-                    </tr>
-                </table>
+                <button onclick="addPenalty('player1')">Подстава/Штраф</button>
             </div>
             <div>
-                <h3>Победы: <span id="player1-wins">0</span></h3>
+                <h3>Забито шаров в партии: <span id="player1-balls">0</span></h3>
+                <h3>Подстав/Штрафов: <span id="player1-penalties">0</span></h3>
             </div>
         </div>
 
-        <div class="player" id="player2">
-            <h2>Юра</h2>
+        <div id="player2" class="player">
+            <h2 id="player2-name"></h2>
             <div class="buttons">
-                <button onclick="addBall('player2', 'чужой в угол')">Чужой в угол</button>
-                <button onclick="addBall('player2', 'чужой в центр')">Чужой в центр</button>
                 <button onclick="addBall('player2', 'свой в угол')">Свой в угол</button>
+                <button onclick="addBall('player2', 'чужой в угол')">Чужой в угол</button>
                 <button onclick="addBall('player2', 'свой в центр')">Свой в центр</button>
+                <button onclick="addBall('player2', 'чужой в центр')">Чужой в центр</button>
                 <button onclick="addBall('player2', 'случайный шар')">Случайный шар</button>
                 <button onclick="addBall('player2', 'шар с разбоя')">Шар с разбоя</button>
-            </div>
-            <div class="stats">
-                <h3>Статистика:</h3>
-                <table>
-                    <tr>
-                        <th>Тип шара</th>
-                        <th>Количество</th>
-                    </tr>
-                    <tr>
-                        <td>Чужой в угол</td>
-                        <td id="player2-чужой в угол">0</td>
-                    </tr>
-                    <tr>
-                        <td>Чужой в центр</td>
-                        <td id="player2-чужой в центр">0</td>
-                    </tr>
-                    <tr>
-                        <td>Свой в угол</td>
-                        <td id="player2-свой в угол">0</td>
-                    </tr>
-                    <tr>
-                        <td>Свой в центр</td>
-                        <td id="player2-свой в центр">0</td>
-                    </tr>
-                    <tr>
-                        <td>Случайный шар</td>
-                        <td id="player2-случайный шар">0</td>
-                    </tr>
-                    <tr>
-                        <td>Шар с разбоя</td>
-                        <td id="player2-шар с разбоя">0</td>
-                    </tr>
-                </table>
+                <button onclick="addPenalty('player2')">Подстава/Штраф</button>
             </div>
             <div>
-                <h3>Победы: <span id="player2-wins">0</span></h3>
+                <h3>Забито шаров в партии: <span id="player2-balls">0</span></h3>
+                <h3>Подстав/Штрафов: <span id="player2-penalties">0</span></h3>
             </div>
         </div>
 
         <div class="total-games">
-            <h3>Общее количество сыгранных партий: <span id="total-games">0</span></h3>
+            <h3>Общий счет по партиям: <span id="player1-name-display"></span> - <span id="player1-wins">0</span> : <span id="player2-name-display"></span> - <span id="player2-wins">0</span></h3>
         </div>
 
-        <div class="buttons">
-            <button onclick="window.open('stats.html')">СТАТИСТИКА</button>
+        <button onclick="toggleStats()">Статистика</button>
+        <div id="stats-table" class="hidden">
+            <h2>Общая статистика</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Игрок</th>
+                        <th>Свой в угол</th>
+                        <th>Чужой в угол</th>
+                        <th>Свой в центр</th>
+                        <th>Чужой в центр</th>
+                        <th>Случайный шар</th>
+                        <th>Шар с разбоя</th>
+                        <th>Подстав/Штрафов</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="stats-player1-name"></td>
+                        <td id="stats-player1-свой в угол">0</td>
+                        <td id="stats-player1-чужой в угол">0</td>
+                        <td id="stats-player1-свой в центр">0</td>
+                        <td id="stats-player1-чужой в центр">0</td>
+                        <td id="stats-player1-случайный шар">0</td>
+                        <td id="stats-player1-шар с разбоя">0</td>
+                        <td id="stats-player1-penalties">0</td>
+                    </tr>
+                    <tr>
+                        <td id="stats-player2-name"></td>
+                        <td id="stats-player2-свой в угол">0</td>
+                        <td id="stats-player2-чужой в угол">0</td>
+                        <td id="stats-player2-свой в центр">0</td>
+                        <td id="stats-player2-чужой в центр">0</td>
+                        <td id="stats-player2-случайный шар">0</td>
+                        <td id="stats-player2-шар с разбоя">0</td>
+                        <td id="stats-player2-penalties">0</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
+        let player1Name, player2Name;
         const stats = {
             player1: {
-                'чужой в угол': 0,
-                'чужой в центр': 0,
                 'свой в угол': 0,
+                'чужой в угол': 0,
                 'свой в центр': 0,
+                'чужой в центр': 0,
                 'случайный шар': 0,
                 'шар с разбоя': 0,
-                wins: 0
+                penalties: 0,
+                wins: 0,
+                totalBalls: 0
             },
             player2: {
-                'чужой в угол': 0,
-                'чужой в центр': 0,
                 'свой в угол': 0,
+                'чужой в угол': 0,
                 'свой в центр': 0,
+                'чужой в центр': 0,
                 'случайный шар': 0,
                 'шар с разбоя': 0,
-                wins: 0
+                penalties: 0,
+                wins: 0,
+                totalBalls: 0
             }
         };
 
-        let totalGames = 0; // Общий счетчик сыгранных партий
+        // Запрос имен игроков
+        player1Name = prompt("Введите имя первого игрока:");
+        player2Name = prompt("Введите имя второго игрока:");
 
+        // Отображаем имена игроков
+        document.getElementById('player1-name').textContent = player1Name;
+        document.getElementById('player2-name').textContent = player2Name;
+        document.getElementById('player1-name-display').textContent = player1Name;
+        document.getElementById('player2-name-display').textContent = player2Name;
+        document.getElementById('stats-player1-name').textContent = player1Name;
+        document.getElementById('stats-player2-name').textContent = player2Name;
+
+        // Добавляем шар
         function addBall(player, type) {
             stats[player][type]++;
-            document.getElementById(`${player}-${type}`).textContent = stats[player][type];
+            stats[player].totalBalls++;
+            updateDisplay(player);
 
-            // Считаем общее количество забитых шаров для текущего игрока (без учета побед)
-            const totalBalls = stats[player]['чужой в угол'] +
-                               stats[player]['чужой в центр'] +
-                               stats[player]['свой в угол'] +
-                               stats[player]['свой в центр'] +
-                               stats[player]['случайный шар'] +
-                               stats[player]['шар с разбоя'];
-
-            // Если игрок забил 8 шаров, он побеждает
-            if (totalBalls >= 8) {
+            // Проверяем, достиг ли игрок 8 шаров
+            if (stats[player].totalBalls >= 8) {
                 stats[player].wins++;
-                document.getElementById(`${player}-wins`).textContent = stats[player].wins;
-
-                // Увеличиваем общий счетчик партий
-                totalGames++;
-                document.getElementById('total-games').textContent = totalGames;
-
-                // Сбрасываем счетчики шаров для обоих игроков
-                resetBalls();
-
-                alert(`${player === 'player1' ? 'Игорь' : 'Юра'} побеждает в партии! Начинается новая партия.`);
+                alert(`${player === 'player1' ? player1Name : player2Name} побеждает в партии!`);
+                resetGame();
             }
         }
 
-        function resetBalls() {
-            for (const player of ['player1', 'player2']) {
-                for (const type of ['чужой в угол', 'чужой в центр', 'свой в угол', 'свой в центр', 'случайный шар', 'шар с разбоя']) {
-                    stats[player][type] = 0;
-                    document.getElementById(`${player}-${type}`).textContent = 0;
-                }
+        // Добавляем подставу/штраф
+        function addPenalty(player) {
+            stats[player].penalties++;
+            updateDisplay(player);
+        }
+
+        // Обновляем отображение
+        function updateDisplay(player) {
+            document.getElementById(`${player}-balls`).textContent = stats[player].totalBalls;
+            document.getElementById(`${player}-penalties`).textContent = stats[player].penalties;
+            document.getElementById(`${player}-wins`).textContent = stats[player].wins;
+
+            // Обновляем общую статистику
+            for (const type of ['свой в угол', 'чужой в угол', 'свой в центр', 'чужой в центр', 'случайный шар', 'шар с разбоя']) {
+                document.getElementById(`stats-${player}-${type}`).textContent = stats[player][type];
             }
+            document.getElementById(`stats-${player}-penalties`).textContent = stats[player].penalties;
+        }
+
+        // Сбрасываем игру
+        function resetGame() {
+            stats.player1.totalBalls = 0;
+            stats.player2.totalBalls = 0;
+            updateDisplay('player1');
+            updateDisplay('player2');
+        }
+
+        // Показываем/скрываем статистику
+        function toggleStats() {
+            const statsTable = document.getElementById('stats-table');
+            statsTable.classList.toggle('hidden');
         }
     </script>
 </body>
